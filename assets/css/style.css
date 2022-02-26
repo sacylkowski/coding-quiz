@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0px;
     padding: 0px;
 }
@@ -12,12 +12,12 @@ header {
     display: block;
     width: 100%;
     max-width: 60%;
-    padding: 100px auto 0 auto;
+    padding-top: 185px;
 }
 
 .container p {
     text-align: center;
-    font-size: 15px;
+    font-size: 22px;
 }
 .start-btn {
     border: none;
@@ -36,7 +36,7 @@ header {
 
 #question {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
 }
 .answer-button {
@@ -52,7 +52,8 @@ header {
 .answer-button:hover {
     background-color: pink;
 }
+*/
 
 .hide {
-    display: none;
+    display: none !important;
 }
