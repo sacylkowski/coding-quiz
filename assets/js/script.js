@@ -3,7 +3,7 @@
 var body = document.body;
 var headerEl = document.createElement("div");
 var highScoresEl = document.createElement("a");
-var timerEl = document.createElement("div");
+var timerEl = document.createElement("p");
 var containerEl = document.createElement("div");
 var quizIntroEl = document.createElement("h1");
 var introEl = document.createElement("p");
@@ -68,7 +68,17 @@ startBtnEl.addEventListener("click", startQuiz)
 
 // Once button is clicked, function runs the quiz and setinterval
 function startTimer() {
-    timerEl.textContent = timerEl + "60";
+    var timeLeft = 60;
+    var timer = setInterval(function() {
+        if (timeLeft >= 1) {
+            timerEl.textContent = "Time: " + timeLeft;
+            timeLeft--;
+        } else {
+            timerEl.textContent = "";
+            clearInterval(timer);
+            addHighScore();
+        }
+    }, 1000);
 }
 
 // Have an object of question array, choices array, answer array
@@ -80,5 +90,8 @@ function startTimer() {
 // Else the answer is incorrect and time gets subtracted from clock (Decrement)
 
 // When all questions have gone through or time is out - the game is over
+function addHighScore() {
+
+}
 
 // When game is over, then I can save initials and the score into local storage
