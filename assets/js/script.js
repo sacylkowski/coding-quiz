@@ -53,6 +53,7 @@ var quizQuestions = [
     },
     ];
 
+var score = 0;    
 // Create elements
 
 var body = document.body;
@@ -66,7 +67,7 @@ var questionsEl = document.createElement("h1");
 var choice1El = document.createElement("button");
 var choice2El = document.createElement("button");
 var choice3El = document.createElement("button");
-var answerBtnEl = document.createElement("button");
+var choice4El = document.createElement("button");
 var startBtnEl = document.createElement("button");
 
 
@@ -75,7 +76,7 @@ highScoresEl.textContent = "View high scores";
 timerEl.textContent = "Time: ";
 quizIntroEl.textContent = "Coding Quiz Challenge";
 introEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
-/* questionsEl.textContent = quizQuestions.question[i];
+/*questionsEl.textContent = quizQuestions.question[i];
 choice1El.textContent = quizQuestions.choice[i];
 choice2El.textContent = quizQuestions.choice[i];
 choice3El.textContent = quizQuestions.choice[i];
@@ -93,7 +94,7 @@ containerEl.appendChild(questionsEl);
 containerEl.appendChild(choice1El);
 containerEl.appendChild(choice2El);
 containerEl.appendChild(choice3El);
-containerEl.appendChild(answerBtnEl);
+containerEl.appendChild(choice4El);
 
 // set attributes for elements
 highScoresEl.setAttribute("style", "float:left; font-size:20px; padding-left:20px; padding-top:10px;");
@@ -103,26 +104,33 @@ quizIntroEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:
 introEl.setAttribute("style", "text-align:center; font-size:22px;");
 startBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
 questionsEl.setAttribute("style", "font-weight:bold; font-size:32px;");
-choice1El.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
-choice2El.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
-choice3El.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
-answerBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
+choice1El.setAttribute("class", "hide answer-button");
+choice2El.setAttribute("class", "hide answer-button");
+choice3El.setAttribute("class", "hide answer-button");
+choice4El.setAttribute("class", "hide answer-button");
 
 
 // Create function for quiz
 function startQuiz() {
+// start button and intro to quiz hides
 startBtnEl.classList.add("hide");
 quizIntroEl.classList.add("hide");
 introEl.classList.add("hide");
+// timer starts
 startTimer();
-
+// question and choices pop up
+questionsEl.classList.remove("hide");
+choice1El.classList.remove("hide");
+choice2El.classList.remove("hide");
+choice3El.classList.remove("hide");
+choice4El.classList.remove("hide");
 }
 
 // Event listener for start button
 
 startBtnEl.addEventListener("click", startQuiz)
 
-// Once button is clicked, function runs the quiz and setinterval
+// Function that runs the countdown
 function startTimer() {
     var timeLeft = 60;
     var timer = setInterval(function() {
@@ -137,20 +145,24 @@ function startTimer() {
     }, 1000);
 }
 
-
 // Use a for loop to go through the questions
 
-for (var i = 0; i > quizQuestions.length; i++) {
-    if (quiz.Questions.question[i].answer) {
-    continue;
-    } else {
-        timeLeft-10;
-    }
+// for (var i = 0; i < quizQuestions.length; i++) { 
+/*checkAnswer()
 };
 
 // When correct answer is picked, next question pops up
 
 // Else the answer is incorrect and time gets subtracted from clock (Decrement)
+function checkAnswer() { 
+if (quizQuestions[i].answer) {
+     score+10;
+ } else {
+ timeLeft-10;
+ } 
+};
+
+
 /*
 // When all questions have gone through or time is out - the game is over
 var initialBoxEl = document.createElement("input");
@@ -160,21 +172,21 @@ var inputInstEl = document.createElement("p");
 
 submitBtnEl.textContent = "Submit";
 endGameEl.textContent = "The quiz is over!"
-inputInstEl.textContent = "Your final score was: " + + ". Please enter initials below"; 
+inputInstEl.textContent = "Your final score was: " + score + ". Please enter initials below"; 
 
 containerEl.appendChild(inputInstEl);
 containerEl.appendChild(initialBoxEl);
 containerEl.appendChild(submitBtnEl);
 
 initialBoxEl.setAttribute("type", "placeholder:'Type initials here'; width:80%; padding:10px 30px;");
-submitBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
+submitBtnEl.setAttribute("style", "hide answer-button");
 endGameEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:center;");
 inputInstEl.setAttribute("style", "text-align:center; font-size:22px;");
 
+// When game is over, then I can save initials and the score into local storage
 
 function addHighScore() {
-
+sumbitBtnEl.classList.remove("hide");
 }
 
-// When game is over, then I can save initials and the score into local storage
 */

@@ -3,10 +3,6 @@
     padding: 0px;
 }
 
-header {
-    margin: 40px 20px;
-}
-
 .container {
     margin: auto;
     display: block;
@@ -39,16 +35,6 @@ header {
     font-size: 30px;
     text-align: center;
 }
-.answer-button {
-    border: none;
-    border-radius: 10px;
-    background-color: purple;
-    font-size: 18px;
-    color: white;
-    padding: 10px 25px;
-    display: block;
-}
-
 .answer-button:hover {
     background-color: pink;
 }
@@ -56,4 +42,18 @@ header {
 
 .hide {
     display: none !important;
+}
+
+.answer-button {
+    border: none;
+    border-radius: 10px;
+    background-color: purple;
+    font-size: 15px;
+    color: white;
+    padding: 10px 25px;
+    display: block;
+}
+
+.answer-button:hover {
+    background-color: pink;
 }
