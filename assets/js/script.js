@@ -132,10 +132,8 @@ startBtnEl.addEventListener("click", startQuiz)
 
 function loadQuestions() {
     showQuestion(shuffledQuestions[questionIndex])
-    // for (var i = 0; i < 3; i++) { 
-    // choices.innerText = questions[questionIndex].choices[i]
-    // }
 }
+
 // function to display the questions
 
 function showQuestion(question) {
@@ -144,12 +142,26 @@ function showQuestion(question) {
     choice2El.innerText = question.choices[1]
     choice3El.innerText = question.choices[2]
     choice4El.innerText = question.choices[3]
-   if (questionIndex > question.length -1) {
-       addHighScore()
-   } else {
-       loadQuestions()
-   }
+
+   /* if (questionIndex > question.length -1) {
+        addHighScore()
+    } else {
+        loadQuestions()
+    }*/
 }
+
+// Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
+function checkAnswer() { 
+    if (quizQuestions.answer) {
+         score+10;
+     } else {
+     timeLeft-10;
+     } 
+     loadQuestions();
+    };
+    
+containerEl.addEventListener("click", checkAnswer)
+
 
 // Function that runs the countdown
 function startTimer() {
@@ -166,17 +178,6 @@ function startTimer() {
     }, 1000);
 }
 
-// Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
-function checkAnswer() { 
-if (quizQuestions[questionIndex].answer) {
-     score+10;
- } else {
- timeLeft-10;
- } 
- loadQuestions();
-};
-
-answerBtnEl.addEventListener("click", checkAnswer)
 
 /*
 // When all questions have gone through or time is out - the game is over
