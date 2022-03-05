@@ -2,58 +2,59 @@
 
 var quizQuestions = [
     {
-    question: "What HTML tag do we put our JavaScript file?",
-    choices: ['<javascript>', '<js>', '<script>', '<link>'],
-    answer: '<script>',
+        question: "What HTML tag do we put our JavaScript file?",
+        choices: ['<javascript>', '<js>', '<script>', '<link>'],
+        answer: '<script>',
     },
     {
-    question: "Where is the correct place to insert your JavaScript file?",
-    choices: ['the <head> section', 'the <body> section', 'both are correct', 'neither are correct'],
-    answer: 'the <body> section',
+        question: "Where is the correct place to insert your JavaScript file?",
+        choices: ['the <head> section', 'the <body> section', 'both are correct', 'neither are correct'],
+        answer: 'the <body> section',
     },
     {
-    question: "JavaScript has a file extension of:",
-    choices: ['.js', '.java', '.javascript', '.xml'],
-    answer: '.js',
+        question: "JavaScript has a file extension of:",
+        choices: ['.js', '.java', '.javascript', '.xml'],
+        answer: '.js',
     },
     {
-    question: "Commonly used data types do not include:",
-    choices: ['strings', 'alerts', 'booleans', 'numbers'],
-    answer: 'alerts',
+        question: "Commonly used data types do not include:",
+        choices: ['strings', 'alerts', 'booleans', 'numbers'],
+        answer: 'alerts',
     },
     {
-    question: "How would you write 'Hello World' in an alert box?",
-    choices: ['msgBox("Hello World")', 'msgAlert("Hello World");', 'alertBox("Hello World");', 'alert("Hello world");'],
-    answer: 'alert("Hello World")',
+        question: "How would you write 'Hello World' in an alert box?",
+        choices: ['msgBox("Hello World")', 'msgAlert("Hello World");', 'alertBox("Hello World");', 'alert("Hello world");'],
+        answer: 'alert("Hello World")',
     },
     {
-    question: "How do you start a FOR loop?",
-    choices: ['for (i <= 3; i++)', 'for (i = 0; i <= 3; i++)', 'for i = 1 to 3', 'for (i = 0; i <= 3)'],
-    answer: 'for (i = 0; i <= 3; i++)',
+        question: "How do you start a FOR loop?",
+        choices: ['for (i <= 3; i++)', 'for (i = 0; i <= 3; i++)', 'for i = 1 to 3', 'for (i = 0; i <= 3)'],
+        answer: 'for (i = 0; i <= 3; i++)',
     },
     {
-    question: "How do you round 10.68 to the largest integer that is less than or equal to itself?",
-    choices: ['Math.floor(10.68)', 'Math.round(10.68)', 'Math.random(10.68)', 'round(10.68)'],
-    answer: 'Math.floor(10.68',
+        question: "How do you round 10.68 to the largest integer that is less than or equal to itself?",
+        choices: ['Math.floor(10.68)', 'Math.round(10.68)', 'Math.random(10.68)', 'round(10.68)'],
+        answer: 'Math.floor(10.68',
     },
     {
-    question: "What will the following return: Boolean(3 < 7) ?",
-    choices: ['false', 'true', 'undefined', 'SyntaxError'],
-    answer: 'true',
+        question: "What will the following return: Boolean(3 < 7) ?",
+        choices: ['false', 'true', 'undefined', 'SyntaxError'],
+        answer: 'true',
     },
     {
-    question: "Which method runs the same code over and over, using a different value each time?",
-    choices: ['forEach()', 'while()', 'for()', 'None of the above'],
-    answer: 'for()'
+        question: "Which method runs the same code over and over, using a different value each time?",
+        choices: ['forEach()', 'while()', 'for()', 'None of the above'],
+        answer: 'for()'
     },
     {
-    question: "Which statement cannot be used to declare a variable in JavaScript?",
-    choices: ['Const', 'Var', 'Let', 'Int'],
-    answer: 'Int'
+        question: "Which statement cannot be used to declare a variable in JavaScript?",
+        choices: ['Const', 'Var', 'Let', 'Int'],
+        answer: 'Int'
     },
-    ];
+];
+var questionIndex, shuffledQuestions
+var score = 0;
 
-var score = 0;    
 // Create elements
 
 var body = document.body;
@@ -76,11 +77,6 @@ highScoresEl.textContent = "View high scores";
 timerEl.textContent = "Time: ";
 quizIntroEl.textContent = "Coding Quiz Challenge";
 introEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
-/*questionsEl.textContent = quizQuestions.question[i];
-choice1El.textContent = quizQuestions.choice[i];
-choice2El.textContent = quizQuestions.choice[i];
-choice3El.textContent = quizQuestions.choice[i];
-answerBtnEl.textContent = quizQuestions.answer[i]; */
 startBtnEl.textContent = "Start Quiz";
 
 // append the elements
@@ -112,28 +108,53 @@ choice4El.setAttribute("class", "hide answer-button");
 
 // Create function for quiz
 function startQuiz() {
-// start button and intro to quiz hides
-startBtnEl.classList.add("hide");
-quizIntroEl.classList.add("hide");
-introEl.classList.add("hide");
-// timer starts
-startTimer();
-// question and choices pop up
-questionsEl.classList.remove("hide");
-choice1El.classList.remove("hide");
-choice2El.classList.remove("hide");
-choice3El.classList.remove("hide");
-choice4El.classList.remove("hide");
+    // start button and intro to quiz hides
+    startBtnEl.classList.add("hide");
+    quizIntroEl.classList.add("hide");
+    introEl.classList.add("hide");
+    // timer starts
+    startTimer();
+    // question and choices pop up
+    shuffledQuestions = quizQuestions.sort(() => Math.random() - .5)
+    questionIndex = 0
+    questionsEl.classList.remove("hide");
+    choice1El.classList.remove("hide");
+    choice2El.classList.remove("hide");
+    choice3El.classList.remove("hide");
+    choice4El.classList.remove("hide");
+    loadQuestions()
 }
 
 // Event listener for start button
 
 startBtnEl.addEventListener("click", startQuiz)
 
+
+function loadQuestions() {
+    showQuestion(shuffledQuestions[questionIndex])
+    // for (var i = 0; i < 3; i++) { 
+    // choices.innerText = questions[questionIndex].choices[i]
+    // }
+}
+// function to display the questions
+
+function showQuestion(question) {
+    questionsEl.innerText = question.question
+    choice1El.innerText = question.choices[0]
+    choice2El.innerText = question.choices[1]
+    choice3El.innerText = question.choices[2]
+    choice4El.innerText = question.choices[3]
+   if (questionIndex > question.length -1) {
+       addHighScore()
+   } else {
+       loadQuestions()
+   }
+}
+
 // Function that runs the countdown
 function startTimer() {
     var timeLeft = 60;
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         if (timeLeft >= 1) {
             timerEl.textContent = "Time: " + timeLeft;
             timeLeft--;
@@ -145,23 +166,17 @@ function startTimer() {
     }, 1000);
 }
 
-// Use a for loop to go through the questions
-
-// for (var i = 0; i < quizQuestions.length; i++) { 
-/*checkAnswer()
-};
-
-// When correct answer is picked, next question pops up
-
-// Else the answer is incorrect and time gets subtracted from clock (Decrement)
+// Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
 function checkAnswer() { 
-if (quizQuestions[i].answer) {
+if (quizQuestions[questionIndex].answer) {
      score+10;
  } else {
  timeLeft-10;
  } 
+ loadQuestions();
 };
 
+answerBtnEl.addEventListener("click", checkAnswer)
 
 /*
 // When all questions have gone through or time is out - the game is over
@@ -186,7 +201,7 @@ inputInstEl.setAttribute("style", "text-align:center; font-size:22px;");
 // When game is over, then I can save initials and the score into local storage
 
 function addHighScore() {
-sumbitBtnEl.classList.remove("hide");
+submitBtnEl.classList.remove("hide");
 }
 
 */
