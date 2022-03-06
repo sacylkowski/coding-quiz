@@ -142,18 +142,38 @@ function showQuestion(question) {
     choice2El.innerText = question.choices[1]
     choice3El.innerText = question.choices[2]
     choice4El.innerText = question.choices[3]
-    // if (question[i].choices[0] === quizQuestions[i].answer) {
-    //    firstChoice.setAttribute("data-answer", "true"); 
-    //  } else {
 
-    // }
-  
+    // add data aattributes for answers
+    if (question[i].choices[0] === question[i].answer) {
+        firstChoice.setAttribute("data-answer", "true");
+    } else {
+        firstChoice.setAttribute("data-answer", "false");
+    }
+
+    if (question[i].choices[1] === quizQuestions[i].answer) {
+        secondChoice.setAttribute("data-answer", "true");
+    } else {
+        secondChoice.setAttribute("data-answer", "false");
+    }
+
+    if (question[i].choices[2] === quizQuestions[i].answer) {
+        thirdChoice.setAttribute("data-answer", "true");
+    } else {
+        thirdChoice.setAttribute("data-answer", "false");
+    }
+
+    if (question[i].choices[3] === quizQuestions[i].answer) {
+        fourthChoice.setAttribute("data-answer", "true");
+    } else {
+        fourthChoice.setAttribute("data-answer", "false");
+    }
+
     questionIndex++;
-}
+};
 
 // Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
 
-document.querySelector("#answer-buttons").addEventListener("click", function(e) {
+document.querySelector("#answer-buttons").addEventListener("click", function (e) {
     if (e.target.dataset.answer === "true") {
         var score = score + 10;
     } else if (e.target.dataset.answer === "false") {
@@ -164,6 +184,7 @@ document.querySelector("#answer-buttons").addEventListener("click", function(e) 
             addHighScore();
         }
     }
+});
 
 // Function that runs the countdown
 var timeLeft = 50;
