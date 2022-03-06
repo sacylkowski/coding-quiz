@@ -65,10 +65,10 @@ var containerEl = document.createElement("div");
 var quizIntroEl = document.createElement("h1");
 var introEl = document.createElement("p");
 var questionsEl = document.createElement("h1");
-var choice1El = document.createElement("button");
-var choice2El = document.createElement("button");
-var choice3El = document.createElement("button");
-var choice4El = document.createElement("button");
+var choice1El = document.getElementById("choice1");
+var choice2El = document.getElementById("choice2");
+var choice3El = document.getElementById("choice3");
+var choice4El = document.getElementById("choice4");
 var startBtnEl = document.createElement("button");
 
 
@@ -99,7 +99,7 @@ containerEl.setAttribute("style", "margin:auto; display:block; width:100%; max-w
 quizIntroEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:center;");
 introEl.setAttribute("style", "text-align:center; font-size:22px;");
 startBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
-questionsEl.setAttribute("style", "font-weight:bold; font-size:32px;");
+questionsEl.setAttribute("class", "hide questions");
 choice1El.setAttribute("class", "hide answer-button");
 choice2El.setAttribute("class", "hide answer-button");
 choice3El.setAttribute("class", "hide answer-button");
@@ -115,8 +115,6 @@ function startQuiz() {
     // timer starts
     startTimer();
     // question and choices pop up
-    shuffledQuestions = quizQuestions.sort(() => Math.random() - .5)
-    questionIndex = 0
     questionsEl.classList.remove("hide");
     choice1El.classList.remove("hide");
     choice2El.classList.remove("hide");
@@ -131,6 +129,8 @@ startBtnEl.addEventListener("click", startQuiz)
 
 
 function loadQuestions() {
+    shuffledQuestions = quizQuestions.sort(() => Math.random() - .5)
+    questionIndex = 0
     showQuestion(shuffledQuestions[questionIndex])
 }
 
@@ -142,30 +142,33 @@ function showQuestion(question) {
     choice2El.innerText = question.choices[1]
     choice3El.innerText = question.choices[2]
     choice4El.innerText = question.choices[3]
+    // if (question[i].choices[0] === quizQuestions[i].answer) {
+    //    firstChoice.setAttribute("data-answer", "true"); 
+    //  } else {
 
-   /* if (questionIndex > question.length -1) {
-        addHighScore()
-    } else {
-        loadQuestions()
-    }*/
+    // }
+  
+    questionIndex++;
 }
 
 // Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
-function checkAnswer() { 
-    if (quizQuestions.answer) {
-         score+10;
-     } else {
-     timeLeft-10;
-     } 
-     loadQuestions();
-    };
-    
-containerEl.addEventListener("click", checkAnswer)
 
+document.querySelector("#answer-buttons").addEventListener("click", function(e) {
+    if (e.target.dataset.answer === "true") {
+        var score = score + 10;
+    } else if (e.target.dataset.answer === "false") {
+        if (timeLeft >= 10) {
+            timeLeft = timeLeft - 10;
+        } else if (timeLeft < 10) {
+            timeLeft = 0;
+            addHighScore();
+        }
+    }
 
 // Function that runs the countdown
+var timeLeft = 50;
+
 function startTimer() {
-    var timeLeft = 60;
     var timer = setInterval(function () {
         if (timeLeft >= 1) {
             timerEl.textContent = "Time: " + timeLeft;
@@ -180,6 +183,7 @@ function startTimer() {
 
 
 /*
+
 // When all questions have gone through or time is out - the game is over
 var initialBoxEl = document.createElement("input");
 var submitBtnEl = document.createElement("button");
@@ -195,7 +199,7 @@ containerEl.appendChild(initialBoxEl);
 containerEl.appendChild(submitBtnEl);
 
 initialBoxEl.setAttribute("type", "placeholder:'Type initials here'; width:80%; padding:10px 30px;");
-submitBtnEl.setAttribute("style", "hide answer-button");
+submitBtnEl.setAttribute("class", "hide answer-button");
 endGameEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:center;");
 inputInstEl.setAttribute("style", "text-align:center; font-size:22px;");
 
@@ -203,6 +207,7 @@ inputInstEl.setAttribute("style", "text-align:center; font-size:22px;");
 
 function addHighScore() {
 submitBtnEl.classList.remove("hide");
+
 }
 
 */
