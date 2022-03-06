@@ -54,6 +54,7 @@ var quizQuestions = [
 ];
 var questionIndex, shuffledQuestions
 var score = 0;
+var i = 0;
 
 // Create elements
 
@@ -65,10 +66,10 @@ var containerEl = document.createElement("div");
 var quizIntroEl = document.createElement("h1");
 var introEl = document.createElement("p");
 var questionsEl = document.createElement("h1");
-var choice1El = document.getElementById("choice1");
-var choice2El = document.getElementById("choice2");
-var choice3El = document.getElementById("choice3");
-var choice4El = document.getElementById("choice4");
+var choice1El = document.getElementById("#choice1");
+var choice2El = document.getElementById("#choice2");
+var choice3El = document.getElementById("#choice3");
+var choice4El = document.getElementById("#choice4");
 var startBtnEl = document.createElement("button");
 
 
@@ -87,10 +88,10 @@ containerEl.appendChild(quizIntroEl);
 containerEl.appendChild(introEl);
 containerEl.appendChild(startBtnEl);
 containerEl.appendChild(questionsEl);
-containerEl.appendChild(choice1El);
-containerEl.appendChild(choice2El);
-containerEl.appendChild(choice3El);
-containerEl.appendChild(choice4El);
+// containerEl.appendChild(choice1El);
+// containerEl.appendChild(choice2El);
+// containerEl.appendChild(choice3El);
+// containerEl.appendChild(choice4El);
 
 // set attributes for elements
 highScoresEl.setAttribute("style", "float:left; font-size:20px; padding-left:20px; padding-top:10px;");
@@ -100,10 +101,10 @@ quizIntroEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:
 introEl.setAttribute("style", "text-align:center; font-size:22px;");
 startBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
 questionsEl.setAttribute("class", "hide questions");
-choice1El.setAttribute("class", "hide answer-button");
-choice2El.setAttribute("class", "hide answer-button");
-choice3El.setAttribute("class", "hide answer-button");
-choice4El.setAttribute("class", "hide answer-button");
+// choice1El.classList.add("hide");
+// choice2El.classList.add("hide");
+// choice3El.classList.add("hide");
+// choice4El.classList.add("hide");
 
 
 // Create function for quiz
@@ -116,11 +117,11 @@ function startQuiz() {
     startTimer();
     // question and choices pop up
     questionsEl.classList.remove("hide");
-    choice1El.classList.remove("hide");
+    choice2El.classList.remove("hide");
     choice2El.classList.remove("hide");
     choice3El.classList.remove("hide");
     choice4El.classList.remove("hide");
-    loadQuestions()
+    loadQuestions();
 }
 
 // Event listener for start button
@@ -143,29 +144,28 @@ function showQuestion(question) {
     choice3El.innerText = question.choices[2]
     choice4El.innerText = question.choices[3]
 
-    // add data aattributes for answers
-    if (question[i].choices[0] === question[i].answer) {
-        firstChoice.setAttribute("data-answer", "true");
+    // add data attributes for answers
+    if (quizQuestions[i].choices[0] === quizQuestions[i].answer) {
+        choice1El.setAttribute("data-answer", "true");
     } else {
-        firstChoice.setAttribute("data-answer", "false");
+        choice1El.setAttribute("data-answer", "false");
     }
 
-    if (question[i].choices[1] === quizQuestions[i].answer) {
-        secondChoice.setAttribute("data-answer", "true");
+    if (quizQuestions[i].choices[1] === quizQuestions[i].answer) {
+        choice2El.setAttribute("data-answer", "true");
     } else {
-        secondChoice.setAttribute("data-answer", "false");
+        choice2El.setAttribute("data-answer", "false");
     }
 
-    if (question[i].choices[2] === quizQuestions[i].answer) {
-        thirdChoice.setAttribute("data-answer", "true");
+    if (quizQuestions[i].choices[2] === quizQuestions[i].answer) {
+        choice3El.setAttribute("data-answer", "true");
     } else {
-        thirdChoice.setAttribute("data-answer", "false");
+        choice3El.setAttribute("data-answer", "false");
     }
-
-    if (question[i].choices[3] === quizQuestions[i].answer) {
-        fourthChoice.setAttribute("data-answer", "true");
+    if (quizQuestions[i].choices[3] === quizQuestions[i].answer) {
+        choice4El.setAttribute("data-answer", "true");
     } else {
-        fourthChoice.setAttribute("data-answer", "false");
+        choice4El.setAttribute("data-answer", "false");
     }
 
     questionIndex++;
@@ -174,6 +174,7 @@ function showQuestion(question) {
 // Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
 
 document.querySelector("#answer-buttons").addEventListener("click", function (e) {
+    console.log("clicked")
     if (e.target.dataset.answer === "true") {
         var score = score + 10;
     } else if (e.target.dataset.answer === "false") {
@@ -184,6 +185,7 @@ document.querySelector("#answer-buttons").addEventListener("click", function (e)
             addHighScore();
         }
     }
+    loadQuestions();
 });
 
 // Function that runs the countdown
