@@ -66,10 +66,10 @@ var containerEl = document.createElement("div");
 var quizIntroEl = document.createElement("h1");
 var introEl = document.createElement("p");
 var questionsEl = document.createElement("h1");
-var choice1El = document.getElementById("#choice1");
-var choice2El = document.getElementById("#choice2");
-var choice3El = document.getElementById("#choice3");
-var choice4El = document.getElementById("#choice4");
+var choice1El = document.getElementById("choice1");
+var choice2El = document.getElementById("choice2");
+var choice3El = document.getElementById("choice3");
+var choice4El = document.getElementById("choice4");
 var startBtnEl = document.createElement("button");
 
 
@@ -88,10 +88,10 @@ containerEl.appendChild(quizIntroEl);
 containerEl.appendChild(introEl);
 containerEl.appendChild(startBtnEl);
 containerEl.appendChild(questionsEl);
-// containerEl.appendChild(choice1El);
-// containerEl.appendChild(choice2El);
-// containerEl.appendChild(choice3El);
-// containerEl.appendChild(choice4El);
+containerEl.appendChild(choice1El);
+containerEl.appendChild(choice2El);
+containerEl.appendChild(choice3El);
+containerEl.appendChild(choice4El);
 
 // set attributes for elements
 highScoresEl.setAttribute("style", "float:left; font-size:20px; padding-left:20px; padding-top:10px;");
@@ -117,7 +117,7 @@ function startQuiz() {
     startTimer();
     // question and choices pop up
     questionsEl.classList.remove("hide");
-    choice2El.classList.remove("hide");
+    choice1El.classList.remove("hide");
     choice2El.classList.remove("hide");
     choice3El.classList.remove("hide");
     choice4El.classList.remove("hide");
@@ -172,8 +172,9 @@ function showQuestion(question) {
 };
 
 // Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
+var answerButtonsEl = document.querySelector("ul");
 
-document.querySelector("#answer-buttons").addEventListener("click", function (e) {
+answerButtonsEl.addEventListener("click", function (e) {
     console.log("clicked")
     if (e.target.dataset.answer === "true") {
         var score = score + 10;
