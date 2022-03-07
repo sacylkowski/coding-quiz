@@ -101,10 +101,6 @@ quizIntroEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:
 introEl.setAttribute("style", "text-align:center; font-size:22px;");
 startBtnEl.setAttribute("style", "border: none; border-radius:10px; background-color:purple; font-size:15px; color:white; padding:10px 25px; margin:10px auto; display:block;");
 questionsEl.setAttribute("class", "hide questions");
-// choice1El.classList.add("hide");
-// choice2El.classList.add("hide");
-// choice3El.classList.add("hide");
-// choice4El.classList.add("hide");
 
 
 // Create function for quiz
@@ -172,12 +168,12 @@ function showQuestion(question) {
 };
 
 // Check if question that is picked is correct, else the answer is incorrect and time gets subtracted from clock (Decrement)
-var answerButtonsEl = document.querySelector("ul");
+var answerButtonsEl = document.getElementsByClassName("answer-button");
 
-answerButtonsEl.addEventListener("click", function (e) {
+function checkAnswer (e) {
     console.log("clicked")
     if (e.target.dataset.answer === "true") {
-        var score = score + 10;
+        score = score + 10;
     } else if (e.target.dataset.answer === "false") {
         if (timeLeft >= 10) {
             timeLeft = timeLeft - 10;
@@ -187,7 +183,11 @@ answerButtonsEl.addEventListener("click", function (e) {
         }
     }
     loadQuestions();
-});
+};
+
+for (var i = 0; i < answerButtonsEl.length; i++) {
+    answerButtonsEl[i].addEventListener("click", checkAnswer);
+}
 
 // Function that runs the countdown
 var timeLeft = 50;
@@ -206,8 +206,6 @@ function startTimer() {
 }
 
 
-/*
-
 // When all questions have gone through or time is out - the game is over
 var initialBoxEl = document.createElement("input");
 var submitBtnEl = document.createElement("button");
@@ -218,20 +216,20 @@ submitBtnEl.textContent = "Submit";
 endGameEl.textContent = "The quiz is over!"
 inputInstEl.textContent = "Your final score was: " + score + ". Please enter initials below"; 
 
-containerEl.appendChild(inputInstEl);
-containerEl.appendChild(initialBoxEl);
-containerEl.appendChild(submitBtnEl);
-
-initialBoxEl.setAttribute("type", "placeholder:'Type initials here'; width:80%; padding:10px 30px;");
-submitBtnEl.setAttribute("class", "hide answer-button");
-endGameEl.setAttribute("style", "font-weight:bold; font-size:30px; text-align:center;");
-inputInstEl.setAttribute("style", "text-align:center; font-size:22px;");
+initialBoxEl.setAttribute("type", "width:100%; padding:30px 50px;");
+submitBtnEl.setAttribute("class", "answer-button");
+endGameEl.setAttribute("class", "questions");
+inputInstEl.setAttribute("style", "text-align:center; font-size:28px;");
 
 // When game is over, then I can save initials and the score into local storage
 
 function addHighScore() {
-submitBtnEl.classList.remove("hide");
-
+containerEl.appendChild(inputInstEl);
+containerEl.appendChild(initialBoxEl);
+containerEl.appendChild(submitBtnEl);
+questionsEl.classList.add("hide");
+choice1El.classList.add("hide");
+choice2El.classList.add("hide");
+choice3El.classList.add("hide");
+choice4El.classList.add("hide");
 }
-
-*/
